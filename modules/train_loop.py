@@ -420,11 +420,11 @@ class SimpleTrainer(TrainerBase):
 
         if comm.is_main_process():
             storage = get_event_storage()
-
+            # print("storgae put scaler function",storage.put_scalar)
             # data_time among workers can have high variance. The actual latency
             # caused by data_time is the maximum among workers.
             data_time = np.max([x.pop("data_time") for x in all_metrics_dict])
-            storage.put_scalar("data_time", data_time, cur_iter=cur_iter)
+            storage.put_scalar("data_time",data_time,cur_iter=cur_iter)
 
             # average the rest metrics
             metrics_dict = {
@@ -438,7 +438,7 @@ class SimpleTrainer(TrainerBase):
                 )
 
             storage.put_scalar(
-                "{}total_loss".format(prefix), total_losses_reduced, cur_iter=cur_iter
+                "{}total_loss".format(prefix), total_losses_reduced, cur_iter =cur_iter
             )
             if len(metrics_dict) > 1:
                 storage.put_scalars(cur_iter=cur_iter, **metrics_dict)
@@ -668,7 +668,8 @@ class SimpleTrainerSSL(TrainerBase):
         """
         If you want to do something with the data, you can wrap the dataloader.
         """
-        if self.model.module.do_ssl and self.model.module.iter % self.model.module.ssl_freq == 0 :
+        # if self.model.module.do_ssl and self.model.module.iter % self.model.module.ssl_freq == 0 :
+        if self.model.do_ssl and self.model.iter % self.model.ssl_freq == 0 :
             data_unl = next(self._data_loader_unl_iter)
         else: 
             data_unl = None
@@ -685,18 +686,22 @@ class SimpleTrainerSSL(TrainerBase):
         """
         Update teacher model weights.
         """
-        if self.iter == self.model_teacher.module.burn_in:
+        # if self.iter == self.model_teacher.module.burn_in:
+        if self.iter == self.model_teacher.burn_in:
             self.update_teacher_model(ema_decay=0.)
-        elif self.iter > self.model_teacher.module.burn_in:
-            self.update_teacher_model(ema_decay=self.model_teacher.module.ema_decay)
+        # elif self.iter > self.model_teacher.module.burn_in:
+        elif self.iter > self.model_teacher.burn_in:
+            # self.update_teacher_model(ema_decay=self.model_teacher.module.ema_decay)
+            self.update_teacher_model(ema_decay=self.model_teacher.ema_decay)
 
         """
         If you want to do something with the losses, you can wrap the model.
         """
         with torch.no_grad():
             teacher_preds = self.model_teacher(data_unl, return_preds=True)
+        # teacher_pl = self.model_teacher.module.prepare_ssl_outputs(teacher_preds)
         teacher_pl = self.model_teacher.module.prepare_ssl_outputs(teacher_preds)
-        # self.model_teacher.module.instance_inference_teacher(teacher_preds)
+        # #self.model_teacher.module.instance_inference_teacher(teacher_preds)
 
         loss_dict = self.model(data, branch='supervised')
         if isinstance(loss_dict, torch.Tensor):
@@ -893,9 +898,15 @@ class AMPTrainerSSL(SimpleTrainerSSL):
         assert self.model.training, "[AMPTrainer] model was changed to eval mode!"
         assert torch.cuda.is_available(), "[AMPTrainer] CUDA is required for AMP training!"
         from torch.cuda.amp import autocast
+        if isinstance(self.model, DistributedDataParallel):
+            self.model = self.model
+        
+        print(self.model)
 
         start = time.perf_counter()
+        print("the MODEL ------>",self.model.do_ssl)
         if self.model.module.do_ssl and self.model.module.iter % self.model.module.ssl_freq == 0 :
+        # if self.model.do_ssl and self.model.iter % self.model.ssl_freq == 0 :
             data_unl = next(self._data_loader_unl_iter)
         else: 
             data_unl = None
@@ -908,14 +919,18 @@ class AMPTrainerSSL(SimpleTrainerSSL):
         """
         Update teacher model weights.
         """
-        if self.iter == self.model_teacher.module.burn_in:
+        # if self.iter == self.model_teacher.module.burn_in:
+        if self.iter == self.model_teacher.burn_in:
             self.update_teacher_model(ema_decay=0.)
-        elif self.iter > self.model_teacher.module.burn_in:
-            self.update_teacher_model(ema_decay=self.model_teacher.module.ema_decay)
+        # elif self.iter > self.model_teacher.module.burn_in:
+        elif self.iter > self.model_teacher.burn_in:
+            # self.update_teacher_model(ema_decay=self.model_teacher.module.ema_decay)
+            self.update_teacher_model(ema_decay=self.model_teacher.ema_decay)
 
         with torch.no_grad():
             teacher_preds = self.model_teacher(data_unl, return_preds=True)
         teacher_pl = self.model_teacher.module.prepare_ssl_outputs(teacher_preds)
+        # teacher_pl = self.model_teacher.prepare_ssl_outputs(teacher_preds)
         data_ssl = {'data': data_unl, 'pseudo_label': teacher_pl}
         del teacher_preds
     

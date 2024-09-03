@@ -1,4 +1,4 @@
-This directory contains few tools for MaskFormer.
+We use ResNet and Swin as the backbone in our model.
 
 * `convert-torchvision-to-d2.py`
 
@@ -29,33 +29,6 @@ wget https://github.com/SwinTransformer/storage/releases/download/v1.0.0/swin_la
 python tools/convert-pretrained-swin-model-to-d2.py swin_large_patch4_window12_384_22k.pth swin_large_patch4_window12_384_22k.pkl
 ```
 
-* `evaluate_pq_for_semantic_segmentation.py`
-
-Tool to evaluate PQ (PQ-stuff) for semantic segmentation predictions.
-
-Usage:
-
-```
-python tools/evaluate_pq_for_semantic_segmentation.py --dataset-name ade20k_sem_seg_val --json-file OUTPUT_DIR/inference/sem_seg_predictions.json
-```
-
-where `OUTPUT_DIR` is set in the config file.
-
-* `evaluate_coco_boundary_ap.py`
-
-Tool to evaluate Boundary AP for instance segmentation predictions.
-
-Usage:
-
-```
-python tools/coco_instance_evaluation.py --gt-json-file COCO_GT_JSON --dt-json-file COCO_DT_JSON
-```
-
-To install Boundary IoU API, run:
-
-```
-pip install git+https://github.com/bowenc0221/boundary-iou-api.git
-```
 
 * `analyze_model.py`
 

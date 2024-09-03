@@ -1,3 +1,8 @@
-cityscapesscripts
+cython
+scipy
+shapely
+timm
+h5py
+submitit
+scikit-image
 opencv-python
-pytorch_pretrained_vit

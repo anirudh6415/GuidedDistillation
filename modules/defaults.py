@@ -370,6 +370,7 @@ class DefaultTrainer(TrainerBase):
             setup_logger()
         cfg = DefaultTrainer.auto_scale_workers(cfg, comm.get_world_size())
 
+        print("cfg is .....", cfg)
         # Assume these objects must be constructed in this order.
         model = self.build_model(cfg)
         optimizer = self.build_optimizer(cfg, model)
@@ -593,6 +594,7 @@ class DefaultTrainer(TrainerBase):
         It now calls :func:`detectron2.modeling.build_model`.
         Overwrite it if you'd like a different model.
         """
+        print("cfg loaded to build function",cfg)
         model = build_model(cfg)
         logger = logging.getLogger(__name__)
         logger.info("Model:\n{}".format(model))
