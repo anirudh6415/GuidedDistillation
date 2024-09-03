@@ -33,16 +33,14 @@ This repository merges the functionalities of **Mask DINO** and **Guided Distill
 Follow the [installation instructions](INSTALL.md) to set up the environment and dependencies.
 
 ## Getting Started
-
-1. **[Inference Demo with Pre-trained Model](demo/README.md)**: Instructions for running inference with pre-trained models.
-2. **[Preparing Datasets](datasets/README.md)**: Guidelines for preparing datasets compatible with this codebase.
-3. **[Usage Instructions](#usage)**: Basic usage and examples.
+Please follow **Mask DINO** and **Guided Distillation** Repositories.
 
 ## Results
 
 **Mask DINO** and **Guided Distillation** combined achieve state-of-the-art results on various benchmarks. Refer to the [Mask DINO Results](https://github.com/IDEA-Research/Mask-DINO#results) and [Guided Distillation Results](**https://github.com/facebookresearch/GuidedDistillation/tree/main**) for detailed performance metrics.
 
 If you find our work helpful for your research, please consider citing the following BibTeX entry.
+
 ## Citations
 
 If you use this repository in your research, please cite the original papers:
