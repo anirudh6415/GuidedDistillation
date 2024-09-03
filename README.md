@@ -33,7 +33,9 @@ This repository merges the functionalities of **Mask DINO** and **Guided Distill
 Follow the [installation instructions](INSTALL.md) to set up the environment and dependencies.
 
 ## Getting Started
-Please follow **Mask DINO** and **Guided Distillation** Repositories.
+Please follow **Mask DINO** and **Guided Distillation** Repositories for installation.
+1. train_net.py for mask2former training.
+2. train_net_org.py and/or train_net1 for maskdino training.
 
 ## Results
 
