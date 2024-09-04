@@ -92,4 +92,4 @@ If you use this repository in your research, please cite the original papers:
 Many thanks to these excellent opensource projects 
 * [Mask2Former](https://github.com/facebookresearch/Mask2Former) 
 * [DINO](https://github.com/IDEA-Research/DINO)
-
+* [Mask DINO](https://arxiv.org/abs/2206.02777)
