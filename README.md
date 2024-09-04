@@ -1,7 +1,5 @@
 # Mask DINO + Guided Distillation for Semi-Supervised Instance Segmentation
 
-![Mask DINO](figures/dinosaur.png)
-
 ## Overview
 
 This repository merges the functionalities of **Mask DINO** and **Guided Distillation for Semi-Supervised Instance Segmentation** (based on Mask2Former) into a unified codebase. The combined approach aims to leverage the strengths of both methods for improved performance in object detection and segmentation tasks.
@@ -62,9 +60,6 @@ If you use this repository in your research, please cite the original papers:
   year={2023}
 }
 
-If you find the code useful, please also consider the following BibTeX entry.
-
-```BibTeX
 @misc{zhang2022dino,
       title={DINO: DETR with Improved DeNoising Anchor Boxes for End-to-End Object Detection}, 
       author={Hao Zhang and Feng Li and Shilong Liu and Lei Zhang and Hang Su and Jun Zhu and Lionel M. Ni and Heung-Yeung Shum},
