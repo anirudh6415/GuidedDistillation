@@ -14,9 +14,9 @@ This repository merges the functionalities of **Mask DINO** and **Guided Distill
 
    - **Code**: [Mask DINO GitHub Repository](https://github.com/IDEA-Research/Mask-DINO)
 
-2. **[Guided Distillation for Semi-Supervised Instance Segmentation](https://arxiv.org/abs/2301.02356)**: This approach extends Mask2Former for semi-supervised instance segmentation by utilizing guided distillation techniques to improve performance with limited labeled data.
+2. **[Guided Distillation for Semi-Supervised Instance Segmentation](https://arxiv.org/abs/2308.02668)**: This approach extends Mask2Former for semi-supervised instance segmentation by utilizing guided distillation techniques to improve performance with limited labeled data.
 
-   - **Paper**: [Guided Distillation for Semi-Supervised Instance Segmentation](https://arxiv.org/abs/2301.02356)
+   - **Paper**: [Guided Distillation for Semi-Supervised Instance Segmentation](https://arxiv.org/abs/2308.02668)
 
    - **Code**: [GuidedDistillation GitHub Repository](https://github.com/facebookresearch/GuidedDistillation/tree/main)
 
@@ -56,7 +56,7 @@ If you use this repository in your research, please cite the original papers:
 @article{author2023guided,
   title={Guided Distillation for Semi-Supervised Instance Segmentation},
   author={Author A and Author B and Author C},
-  journal={arXiv preprint arXiv:2301.02356},
+  journal={arXiv preprint arXiv:2308.02668},
   year={2023}
 }
 
